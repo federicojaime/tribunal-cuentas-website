@@ -1,4 +1,4 @@
-// src/components/PageRouter.jsx - ACTUALIZADO CON HISTORIA
+// src/components/PageRouter.jsx - CORREGIDO
 import React from 'react';
 
 // Páginas principales
@@ -15,7 +15,7 @@ import { HistoriaPage } from './pages/HistoriaPage';
 import { NormasPage } from './pages/NormasPage';
 import { GestionCalidadPage } from './pages/GestionCalidadPage';
 import { NivelOperativoPage } from './pages/NivelOperativoPage';
-import { PanelAdministrativoPage } from './pages/PanelAdministrativoPage';  // NUEVA IMPORTACIÓN
+import { PanelAdministrativoPage } from './pages/PanelAdministrativoPage';
 import { InstitucionalPage } from './pages/InstitucionalPage';
 import { CalidadPage } from './pages/CalidadPage';
 import { MunicipiosPage } from './pages/MunicipiosPage';
@@ -27,9 +27,8 @@ export const PageRouter = ({ activeSection, onSectionChange }) => {
             case 'inicio':
                 return (
                     <>
-                        <HeroSection />
+                        <HeroSection onSectionChange={onSectionChange} />
                         <AboutSection />
-                        <StatsSection />
                         <QuickAccessSection onSectionChange={onSectionChange} />
                         <NewsSection />
                         <ContactSection />
@@ -39,19 +38,19 @@ export const PageRouter = ({ activeSection, onSectionChange }) => {
             case 'autoridades':
                 return <AutoridadesPage />;
             
-            case 'historia':  // NUEVA RUTA
+            case 'historia':
                 return <HistoriaPage />;
             
-            case 'normas':    // NUEVA RUTA PARA NORMAS
+            case 'normas':
                 return <NormasPage />;
             
-            case 'gestion-calidad':  // NUEVA RUTA PARA GESTIÓN DE CALIDAD
+            case 'gestion-calidad':
                 return <GestionCalidadPage />;
             
-            case 'nivel-operativo':  // NUEVA RUTA PARA NIVEL OPERATIVO (LOGIN)
+            case 'nivel-operativo':
                 return <NivelOperativoPage onSectionChange={onSectionChange} />;
             
-            case 'panel-administrativo':  // NUEVA RUTA PARA PANEL ADMIN
+            case 'panel-administrativo':
                 return <PanelAdministrativoPage onSectionChange={onSectionChange} />;
             
             case 'institucional':
@@ -115,7 +114,7 @@ export const PageRouter = ({ activeSection, onSectionChange }) => {
             default:
                 return (
                     <>
-                        <HeroSection />
+                        <HeroSection onSectionChange={onSectionChange} />
                         <AboutSection />
                         <StatsSection />
                         <QuickAccessSection onSectionChange={onSectionChange} />

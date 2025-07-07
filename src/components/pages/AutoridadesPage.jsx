@@ -1,25 +1,25 @@
-// src/components/pages/AutoridadesPage.jsx
-import React from 'react';
-import { Users, Award, Shield, Building2, Scale, Crown } from 'lucide-react';
-import { Section, SectionHeader } from '../ui/Section';
-import { Card } from '../ui/Card';
+// src/components/pages/AutoridadesPage.jsx - VERSIÓN PROFESIONAL 2025
+import React, { useState } from 'react';
+import { Users, Shield, Building2, Scale, ChevronRight, X, User } from 'lucide-react';
 
-// Importación de imágenes de autoridades
+// Importación de imágenes
 import presidentaImg from '../../assets/images/autoridades/presidenta-natalia-hasea.jpg';
 import vocalOsteImg from '../../assets/images/autoridades/vocal-sergio-oste.jpg';
 import vocalCatallamoImg from '../../assets/images/autoridades/vocal-guillermo-catallamo.jpg';
 import vocalBadaloniImg from '../../assets/images/autoridades/vocal-cecilia-badaloni.jpg';
 import vocalFerraroImg from '../../assets/images/autoridades/vocal-alberto-ferraro.jpg';
 
-// Datos de las autoridades
 const AUTORIDADES_DATA = {
     presidenta: {
         id: 'presidenta',
-        nombre: 'Lic. Natalia Hasea',
+        nombre: 'Lic. Natalia Hissa',
         cargo: 'Presidenta',
         imagen: presidentaImg,
-        descripcion: 'Presidenta del Honorable Tribunal de Cuentas de la Provincia de San Luis',
-        destacado: true
+        funciones: [
+            'Representación institucional del Tribunal',
+            'Coordinación de actividades de control',
+            'Gobierno interno y administración'
+        ]
     },
     vocales: [
         {
@@ -27,233 +27,311 @@ const AUTORIDADES_DATA = {
             nombre: 'Dr. Sergio Tomás Oste',
             cargo: 'Vocal',
             imagen: vocalOsteImg,
-            descripcion: 'Vocal del Honorable Tribunal de Cuentas'
+            especialidad: 'Derecho Público'
         },
         {
             id: 'vocal-catallamo',
             nombre: 'Dr. Guillermo Catallamo',
             cargo: 'Vocal',
             imagen: vocalCatallamoImg,
-            descripcion: 'Vocal del Honorable Tribunal de Cuentas'
+            especialidad: 'Derecho Administrativo'
         },
         {
             id: 'vocal-badaloni',
             nombre: 'C.P.N. Cecilia Badaloni',
             cargo: 'Vocal',
             imagen: vocalBadaloniImg,
-            descripcion: 'Vocal del Honorable Tribunal de Cuentas'
+            especialidad: 'Auditoría y Control'
         },
         {
             id: 'vocal-ferraro',
             nombre: 'C.P.N. Alberto Ferraro',
             cargo: 'Vocal',
             imagen: vocalFerraroImg,
-            descripcion: 'Vocal del Honorable Tribunal de Cuentas'
+            especialidad: 'Gestión Financiera'
         }
     ]
 };
 
-const ESTRUCTURA_INFO = [
+const MARCO_INSTITUCIONAL = [
     {
-        titulo: 'Composición Institucional',
-        descripcion: 'El Honorable Tribunal de Cuentas de la Provincia de San Luis está integrado por cinco miembros: el Presidente y cuatro Vocales.',
-        icono: Users
+        titulo: 'Composición',
+        descripcion: 'Cinco miembros según normativa provincial',
+        icono: Users,
+        valor: '5 Miembros'
     },
     {
-        titulo: 'Representación del Tribunal',
-        descripcion: 'El Presidente tiene la representación del Tribunal y posee a su cargo el Gobierno Interno del mismo, con las atribuciones legales y reglamentarias que le corresponden.',
-        icono: Crown
+        titulo: 'Control',
+        descripcion: 'Autoridad exclusiva de fiscalización',
+        icono: Shield,
+        valor: 'Imperium'
     },
     {
-        titulo: 'Estructura Orgánica',
-        descripción: 'Su estructura orgánica se compone de un Secretario Legal, un Contador Fiscal General y un Asesor Jurídico y ejercen el control externo de la Gestión Económica Financiera.',
-        icono: Building2
+        titulo: 'Estructura',
+        descripcion: 'Apoyo técnico especializado',
+        icono: Building2,
+        valor: '3 Áreas'
     },
     {
-        titulo: 'Autoridad Exclusiva',
-        descripcion: 'El Honorable Tribunal de Cuentas es la única autoridad con imperium exclusivo en el orden administrativo para aprobar o desaprobar las cuentas rendidas.',
-        icono: Scale
+        titulo: 'Marco Legal',
+        descripcion: 'Ley Orgánica del Tribunal',
+        icono: Scale,
+        valor: 'Base Normativa'
     }
 ];
 
-export const AutoridadesPage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-        <Section padding="py-12">
-            {/* Header con información institucional */}
-            <div className="mb-16">
-                <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 rounded-3xl p-10 text-white relative overflow-hidden">
-                    {/* Patrón decorativo */}
-                    <div className="absolute inset-0 opacity-10">
-                        <div className="absolute top-8 right-8 w-32 h-32 border-2 border-white rounded-full"></div>
-                        <div className="absolute bottom-8 left-8 w-24 h-24 border-2 border-blue-300 rounded-full"></div>
-                    </div>
+export const AutoridadesPage = () => {
+    const [selectedAuthority, setSelectedAuthority] = useState(null);
 
-                    <div className="relative z-10">
-                        <div className="flex items-center mb-6">
-                            <div className="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mr-4">
-                                <Users className="w-8 h-8 text-white" />
-                            </div>
-                            <div>
-                                <h1 className="text-4xl font-bold mb-2">Autoridades</h1>
-                                <p className="text-blue-200 text-lg">Tribunal de Cuentas de la Provincia de San Luis</p>
-                            </div>
-                        </div>
-
-                        <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 border border-white border-opacity-20">
-                            <p className="text-lg leading-relaxed text-blue-100">
-                                El Honorable Tribunal de Cuentas de la Provincia de San Luis está integrado por cinco miembros: el Presidente y cuatro Vocales. El Presidente tiene la representación del Tribunal y posee a su cargo el Gobierno Interno del mismo, con las atribuciones legales y reglamentarias que le corresponden.
-                            </p>
-                        </div>
+    return (
+        <div className="min-h-screen bg-white">
+            {/* Header */}
+            <header className="bg-slate-900 text-white py-16 lg:py-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center">
+                        <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+                            Autoridades del Tribunal
+                        </h1>
+                        <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+                            Honorable Tribunal de Cuentas de la Provincia de San Luis
+                        </p>
                     </div>
                 </div>
-            </div>
+            </header>
 
-            {/* Presidenta destacada */}
-            <div className="mb-16">
-                <PresidentaCard autoridad={AUTORIDADES_DATA.presidenta} />
-            </div>
+            {/* Presidenta */}
+            <section className="py-20 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Presidenta</h2>
+                        <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+                    </div>
+                    
+                    <PresidentaCard autoridad={AUTORIDADES_DATA.presidenta} />
+                </div>
+            </section>
 
             {/* Vocales */}
-            <div className="mb-16">
-                <SectionHeader
-                    title="Vocales del Tribunal"
-                    subtitle="Miembros integrantes del Honorable Tribunal de Cuentas"
-                />
+            <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Vocales</h2>
+                        <p className="text-lg text-gray-600 mb-8">Miembros del cuerpo colegiado</p>
+                        <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+                    </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {AUTORIDADES_DATA.vocales.map((vocal) => (
-                        <VocalCard key={vocal.id} vocal={vocal} />
-                    ))}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {AUTORIDADES_DATA.vocales.map((vocal) => (
+                            <VocalCard 
+                                key={vocal.id} 
+                                vocal={vocal}
+                                onClick={() => setSelectedAuthority(vocal)}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Marco Institucional */}
+            <section className="py-20 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Marco Institucional</h2>
+                        <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {MARCO_INSTITUCIONAL.map((item, index) => (
+                            <MarcoCard key={index} item={item} />
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Base Legal */}
+            <section className="py-20 bg-blue-900 text-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-4xl mx-auto text-center">
+                        <div className="flex items-center justify-center mb-8">
+                            <Scale className="w-12 h-12 text-blue-300" />
+                        </div>
+                        <h2 className="text-2xl font-bold mb-6">Fundamento Legal</h2>
+                        <p className="text-lg text-blue-100 leading-relaxed">
+                            <span className="font-semibold text-white">Artículo 3° de la Ley Orgánica del Tribunal de Cuentas:</span> 
+                            {" "}El Tribunal de Cuentas es la única autoridad con imperium exclusivo en el orden administrativo, 
+                            para aprobar o desechar las cuentas rendidas en la Administración Provincial, reparticiones autárquicas, 
+                            entes centralizados, descentralizados, desconcentrados y municipalidades de la Provincia de San Luis.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Modal */}
+            {selectedAuthority && (
+                <Modal 
+                    authority={selectedAuthority} 
+                    onClose={() => setSelectedAuthority(null)} 
+                />
+            )}
+        </div>
+    );
+};
+
+const PresidentaCard = ({ autoridad }) => (
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Imagen */}
+            <div className="relative h-96 lg:h-auto">
+                <img
+                    src={autoridad.imagen}
+                    alt={autoridad.nombre}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                        e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNGOUZBRkIiLz48Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNjAiIHI9IjYwIiBmaWxsPSIjRTVFN0VCIi8+PHBhdGggZD0iTTEwMCAzMDBDMTAwIDI1NiAxNDQgMjIwIDIwMCAyMjBTMzAwIDI1NiAzMDAgMzAwSDEwMFoiIGZpbGw9IiNFNUU3RUIiLz48L3N2Zz4=';
+                    }}
+                />
+                <div className="absolute top-4 left-4">
+                    <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        {autoridad.cargo}
+                    </span>
                 </div>
             </div>
 
-            {/* Información institucional */}
-            <div>
-                <SectionHeader
-                    title="Estructura Institucional"
-                    subtitle="Organización y funcionamiento del Tribunal de Cuentas"
-                />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {ESTRUCTURA_INFO.map((info, index) => (
-                        <EstructuraCard key={index} info={info} />
-                    ))}
-                </div>
-
-                {/* Marco legal destacado */}
-                <div className="mt-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl p-8 text-white">
-                    <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <Scale className="w-6 h-6 text-white" />
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-bold mb-3">Marco Legal</h3>
-                            <p className="text-emerald-100 leading-relaxed">
-                                El Honorable Tribunal de Cuentas es la única autoridad con imperium exclusivo en el orden administrativo,
-                                para aprobar o desaprobar las cuentas rendidas en la Administración Provincial, reparticiones autárquicas,
-                                entes centralizados, descentralizados, desconcentrados y municipalidades conforme al{' '}
-                                <span className="font-semibold text-white">Art. 3° de la Ley Orgánica del Tribunal de Cuentas de la Provincia de San Luis</span>.
-                            </p>
-                        </div>
+            {/* Contenido */}
+            <div className="p-8 lg:p-12 flex flex-col justify-center">
+                <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                    {autoridad.nombre}
+                </h3>
+                
+                <div className="mb-8">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                        Funciones Principales
+                    </h4>
+                    <div className="space-y-3">
+                        {autoridad.funciones.map((funcion, index) => (
+                            <div key={index} className="flex items-start">
+                                <ChevronRight className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
+                                <span className="text-gray-700">{funcion}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
-        </Section>
+        </div>
     </div>
 );
 
-const PresidentaCard = ({ autoridad }) => (
-    <div className="relative">
-        <Card className="p-0 overflow-hidden bg-gradient-to-br from-white to-blue-50 border-2 border-blue-200">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                {/* Imagen */}
-                <div className="relative h-96 lg:h-auto">
+const VocalCard = ({ vocal, onClick }) => (
+    <div 
+        className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group"
+        onClick={onClick}
+    >
+        <div className="p-8 text-center">
+            {/* Imagen */}
+            <div className="mb-6">
+                <div className="w-32 h-32 mx-auto rounded-full overflow-hidden bg-gray-100 ring-4 ring-gray-200 group-hover:ring-blue-300 transition-all duration-300">
                     <img
-                        src={autoridad.imagen}
-                        alt={autoridad.nombre}
+                        src={vocal.imagen}
+                        alt={vocal.nombre}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                            e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjE2MCIgcj0iNjAiIGZpbGw9IiM5Q0EzQUYiLz4KPHBhdGggZD0iTTEwMCAzMDBDMTAwIDI1NiAxNDQgMjIwIDIwMCAyMjBTMzAwIDI1NiAzMDAgMzAwSDEwMFoiIGZpbGw9IiM5Q0EzQUYiLz4KPC9zdmc+';
+                            e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNjQiIGN5PSI2NCIgcj0iNjQiIGZpbGw9IiNGOUZBRkIiLz48Y2lyY2xlIGN4PSI2NCIgY3k9IjQ4IiByPSIyMCIgZmlsbD0iI0U1RTdFQiIvPjxwYXRoIGQ9Ik0zMiA5NkMzMiA4MCA0NiA2OCA2NCA2OFM5NiA4MCA5NiA5NkgzMloiIGZpbGw9IiNFNUU3RUIiLz48L3N2Zz4=';
                         }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent opacity-60"></div>
-                    <div className="absolute bottom-6 left-6 right-6">
-                        <div className="bg-blue-900 bg-opacity-90 backdrop-blur-sm rounded-xl p-4 text-white">
-                            <h2 className="text-2xl font-bold mb-1">{autoridad.nombre}</h2>
-                            <p className="text-blue-200 text-lg font-semibold">{autoridad.cargo}</p>
-                        </div>
-                    </div>
+                </div>
+            </div>
+
+            {/* Info */}
+            <div className="mb-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    {vocal.nombre}
+                </h3>
+                <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
+                    {vocal.cargo}
+                </span>
+                {vocal.especialidad && (
+                    <p className="text-gray-600 text-sm">
+                        {vocal.especialidad}
+                    </p>
+                )}
+            </div>
+
+            {/* Acción */}
+            <button className="text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                Ver más información
+            </button>
+        </div>
+    </div>
+);
+
+const MarcoCard = ({ item }) => (
+    <div className="bg-white rounded-xl shadow-md p-8 text-center hover:shadow-lg transition-shadow">
+        <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+            <item.icono className="w-8 h-8 text-white" />
+        </div>
+        
+        <div className="mb-4">
+            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                {item.valor}
+            </span>
+        </div>
+        
+        <h3 className="text-lg font-bold text-gray-900 mb-3">
+            {item.titulo}
+        </h3>
+        
+        <p className="text-gray-600 text-sm">
+            {item.descripcion}
+        </p>
+    </div>
+);
+
+const Modal = ({ authority, onClose }) => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={onClose}>
+        <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="p-6">
+                {/* Header */}
+                <div className="flex justify-between items-start mb-6">
+                    <h3 className="text-xl font-bold text-gray-900">
+                        Información del Vocal
+                    </h3>
+                    <button 
+                        onClick={onClose}
+                        className="text-gray-400 hover:text-gray-600 transition-colors"
+                    >
+                        <X className="w-6 h-6" />
+                    </button>
                 </div>
 
                 {/* Contenido */}
-                <div className="p-8 flex flex-col justify-center">
-                    <div className="mb-6">
-                        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mb-4">
-                            <Scale className="w-8 h-8 text-white" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-slate-800 mb-3">Presidencia del Tribunal</h3>
-                        <p className="text-slate-600 leading-relaxed">
-                            {autoridad.descripcion}. Tiene la representación institucional y ejerce el gobierno interno
-                            con las atribuciones legales y reglamentarias correspondientes.
-                        </p>
+                <div className="text-center">
+                    <div className="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gray-100 mb-4">
+                        <img
+                            src={authority.imagen}
+                            alt={authority.nombre}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI0OCIgY3k9IjQ4IiByPSI0OCIgZmlsbD0iI0Y5RkFGQiIvPjxjaXJjbGUgY3g9IjQ4IiBjeT0iMzYiIHI9IjE2IiBmaWxsPSIjRTVFN0VCIi8+PHBhdGggZD0iTTI0IDcyQzI0IDYwIDM0IDUyIDQ4IDUyUzcyIDYwIDcyIDcySDI0WiIgZmlsbD0iI0U1RTdFQiIvPjwvc3ZnPg==';
+                            }}
+                        />
                     </div>
-
-                    <div className="space-y-3">
-                        <div className="flex items-center space-x-3 text-slate-700">
-                            <Shield className="w-5 h-5 text-blue-600" />
-                            <span className="font-medium">Representación Institucional</span>
+                    
+                    <h4 className="text-lg font-bold text-gray-900 mb-2">
+                        {authority.nombre}
+                    </h4>
+                    
+                    <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                        {authority.cargo}
+                    </span>
+                    
+                    {authority.especialidad && (
+                        <div className="bg-gray-50 rounded-lg p-4">
+                            <h5 className="font-medium text-gray-900 mb-1">Especialidad</h5>
+                            <p className="text-gray-600 text-sm">{authority.especialidad}</p>
                         </div>
-                        <div className="flex items-center space-x-3 text-slate-700">
-                            <Building2 className="w-5 h-5 text-blue-600" />
-                            <span className="font-medium">Gobierno Interno</span>
-                        </div>
-                        <div className="flex items-center space-x-3 text-slate-700">
-                            <Scale className="w-5 h-5 text-blue-600" />
-                            <span className="font-medium">Atribuciones Legales</span>
-                        </div>
-                    </div>
+                    )}
                 </div>
             </div>
-        </Card>
+        </div>
     </div>
-);
-
-const VocalCard = ({ vocal }) => (
-    <Card className="p-0 overflow-hidden group hover:shadow-2xl transition-all duration-500">
-        <div className="relative h-80">
-            <img
-                src={vocal.imagen}
-                alt={vocal.nombre}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                onError={(e) => {
-                    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDMwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjEyMCIgcj0iNDUiIGZpbGw9IiM5Q0EzQUYiLz4KPHBhdGggZD0iTTc1IDIyNUM3NSAxOTIgMTA4IDE2NSAxNTAgMTY1UzIyNSAxOTIgMjI1IDIyNUg3NVoiIGZpbGw9IiM5Q0EzQUYiLz4KPC9zdmc+';
-                }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80"></div>
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-                <div className="bg-slate-900 bg-opacity-90 backdrop-blur-sm rounded-xl p-4 text-white">
-                    <h3 className="text-lg font-bold mb-1">{vocal.nombre}</h3>
-                    <p className="text-slate-300 font-semibold">{vocal.cargo}</p>
-                </div>
-            </div>
-        </div>
-    </Card>
-);
-
-const EstructuraCard = ({ info }) => (
-    <Card className="p-6 group hover:shadow-xl transition-all duration-300">
-        <div className="flex items-start space-x-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                <info.icono className="w-6 h-6 text-white" />
-            </div>
-            <div>
-                <h3 className="text-xl font-semibold text-slate-800 mb-3 group-hover:text-blue-700 transition-colors duration-300">
-                    {info.titulo}
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                    {info.descripcion}
-                </p>
-            </div>
-        </div>
-    </Card>
 );

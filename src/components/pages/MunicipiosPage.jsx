@@ -172,7 +172,7 @@ export const MunicipiosPage = () => (
         </div>
       </div>
 
-      {/* Información adicional */}
+      {/* Información adicional 
       <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-3xl p-8 text-white">
         <div className="flex items-start space-x-4">
           <div className="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -187,7 +187,7 @@ export const MunicipiosPage = () => (
             </p>
           </div>
         </div>
-      </div>
+      </div>*/}
     </Section>
   </div>
 );

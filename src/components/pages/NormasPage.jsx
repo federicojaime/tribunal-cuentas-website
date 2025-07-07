@@ -92,7 +92,7 @@ export const NormasPage = () => (
 
                         <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 border border-white border-opacity-20">
                             <p className="text-lg leading-relaxed text-blue-100">
-                                Acceda a la normativa completa que rige el funcionamiento del Tribunal de Cuentas, 
+                                Acceda a la normativa completa que rige el funcionamiento del Tribunal de Cuentas,
                                 incluyendo leyes provinciales, nacionales y acuerdos institucionales.
                             </p>
                         </div>
@@ -109,7 +109,7 @@ export const NormasPage = () => (
                 </div>
             </div>
 
-            {/* Recursos adicionales */}
+            {/* Recursos adicionales 
             <div className="mb-16">
                 <SectionHeader
                     title="Recursos Adicionales"
@@ -123,7 +123,7 @@ export const NormasPage = () => (
                 </div>
             </div>
 
-            {/* Información adicional */}
+            {/* Información adicional
             <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-3xl p-8 text-white">
                 <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -141,7 +141,7 @@ export const NormasPage = () => (
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </Section>
     </div>
 );
@@ -158,7 +158,7 @@ const NormaCard = ({ seccion, index }) => (
                             <div className="absolute top-4 right-4 w-20 h-20 border border-white rounded-full"></div>
                             <div className="absolute bottom-4 left-4 w-16 h-16 border border-white rounded-full"></div>
                         </div>
-                        
+
                         <div className="relative z-10 text-center">
                             <div className="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4 mx-auto">
                                 <seccion.icono className="w-10 h-10 text-white" />
@@ -187,15 +187,15 @@ const NormaCard = ({ seccion, index }) => (
                                 </span>
                             )}
                         </div>
-                        
+
                         <a
                             href={seccion.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block"
                         >
-                            <GradientButton 
-                                variant="primary" 
+                            <GradientButton
+                                variant="primary"
                                 size="lg"
                                 className="flex items-center group-hover:scale-105 transition-transform duration-300"
                             >

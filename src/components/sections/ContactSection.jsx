@@ -94,12 +94,6 @@ export const ContactSection = () => {
                                             >
                                                 266 - 4423791
                                             </a>
-                                            <a 
-                                                href="tel:2664425454" 
-                                                className="block text-gray-700 hover:text-blue-600 transition-colors"
-                                            >
-                                                266 - 4425454
-                                            </a>
                                         </div>
                                     </div>
                                 </div>

@@ -1,347 +1,305 @@
-// src/components/layout/Navigation.jsx - MEJORADA UX/UI 2025
-import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
-import { useResponsive } from '../../hooks/useResponsive';
 import { NAVIGATION_CONFIG } from '../../constants/navigation';
-
-// Importación del logo
 import logoTribunal from '../../assets/logo-tribunal.png';
 
-export const MinimalNavigation = ({ activeSection, onSectionChange, mobileMenuOpen, setMobileMenuOpen }) => {
-    const scrollY = useScrollPosition();
-    const { isMobile } = useResponsive();
-    const [openDropdown, setOpenDropdown] = useState(null);
+export const MinimalNavigation = ({
+  activeSection,
+  onSectionChange,
+  mobileMenuOpen,
+  setMobileMenuOpen,
+}) => {
+  const scrollY = useScrollPosition();
+  const topBarRef = useRef(null);
+  const navRef = useRef(null);
 
-    const isScrolled = scrollY > 10;
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-    const handleSubmenuClick = (submenuId) => {
-        console.log('Navegando a submenu:', submenuId);
-        
-        const submenuPageMap = {
-            'autoridades': 'autoridades',
-            'historia': 'historia',
-            'ley-organica': 'ley-organica',
-            'normas': 'normas',
-            'constitucion': 'constitucion',
-            'gestion-calidad': 'gestion-calidad',
-            'nivel-operativo': 'nivel-operativo'
-        };
+  const isScrolled = scrollY > 10;
 
-        if (submenuPageMap[submenuId]) {
-            onSectionChange(submenuPageMap[submenuId]);
-        } else {
-            onSectionChange('institucional');
-        }
-        
+  // Detecta tamaño de pantalla confiable
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const handleResize = () => setIsMobile(mediaQuery.matches);
+    handleResize();
+    mediaQuery.addEventListener('change', handleResize);
+    return () => mediaQuery.removeEventListener('change', handleResize);
+  }, []);
+
+  const handleSubmenuClick = (submenuId) => {
+    const map = {
+      autoridades: 'autoridades',
+      historia: 'historia',
+      'ley-organica': 'ley-organica',
+      normas: 'normas',
+      constitucion: 'constitucion',
+      'gestion-calidad': 'gestion-calidad',
+      'nivel-operativo': 'nivel-operativo',
+    };
+
+    onSectionChange(map[submenuId] || 'institucional');
+    setOpenDropdown(null);
+    setMobileMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const closeOnClickOutside = (e) => {
+      if (openDropdown && !e.target.closest('.dropdown-container')) {
         setOpenDropdown(null);
-        setMobileMenuOpen(false);
+      }
     };
+    document.addEventListener('mousedown', closeOnClickOutside);
+    return () => document.removeEventListener('mousedown', closeOnClickOutside);
+  }, [openDropdown]);
 
-    // Cerrar dropdown cuando se hace clic fuera
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (openDropdown && !event.target.closest('.dropdown-container')) {
-                setOpenDropdown(null);
-            }
-        };
+  useEffect(() => {
+    const calcHeight = () => {
+      const gov = topBarRef.current?.offsetHeight || 0;
+      const nav = navRef.current?.offsetHeight || 0;
+      setHeaderHeight(gov + nav);
+    };
+    calcHeight();
+    window.addEventListener('resize', calcHeight);
+    return () => window.removeEventListener('resize', calcHeight);
+  }, [isMobile, isScrolled]);
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [openDropdown]);
+  return (
+    <>
+      {/* Barra Superior */}
+      <div ref={topBarRef} className="bg-slate-900 text-white py-1.5 px-4 select-none">
+        <div className="mx-auto max-w-7xl flex items-center justify-between text-xs">
+          <span className="text-gray-300">Gobierno de San Luis</span>
+          <a
+            href="https://argentina.gob.ar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-1 transition-colors hover:text-blue-300"
+          >
+            <span>argentina.gob.ar</span>
+            <ExternalLink className="h-2.5 w-2.5" />
+          </a>
+        </div>
+      </div>
 
-    return (
-        <>
-            {/* Barra superior gubernamental - Móvil optimizada */}
-            <div className="bg-slate-900 text-white py-1.5 px-4">
-                <div className="max-w-7xl mx-auto flex justify-between items-center text-xs">
-                    <span className="text-gray-300">Gobierno de San Luis</span>
-                    <div className="flex items-center space-x-2">
-                        <a 
-                            href="https://argentina.gob.ar" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="hover:text-blue-300 transition-colors flex items-center space-x-1"
-                        >
-                            <span>argentina.gob.ar</span>
-                            <ExternalLink className="w-2.5 h-2.5" />
-                        </a>
-                    </div>
-                </div>
-            </div>
+      {/* Navegación */}
+      <nav
+        ref={navRef}
+        className={`sticky top-0 z-50 border-b transition-all duration-300 ${isScrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-lg border-gray-200'
+          : 'bg-white border-gray-100'
+          }`}
+      >
+        <div className="mx-auto px-4">
+          <div className="flex h-14 items-center justify-between sm:h-16 lg:h-20">
+            {/* Logo */}
+            <button
+              onClick={() => onSectionChange('inicio')}
+              className="group flex items-center space-x-2 py-2 transition-all hover:opacity-80 sm:space-x-3"
+              aria-label="Ir al inicio"
+            >
+              <img
+                src={logoTribunal}
+                alt="Logo Tribunal de Cuentas"
+                className="h-18 sm:h-16 lg:h-24 w-auto transition-transform group-hover:scale-105"
+                onError={(e) => {
+                  e.currentTarget.src =
+                    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSIyMiIgZmlsbD0iIzFlNDBhZiIgc3Ryb2tlPSIjM2I4MmY2IiBzdHJva2Utd2lkdGg9IjQiLz48cGF0aCBkPSJNMTUgMTZIMTJWMTJIMTVWMTZaTTIxIDE2SDE4VjEySDIxVjE2Wk0yNyAxNkgyNFYxMkgxN1YxNlptNiAxNkgzMFYxMkgzM1YxNlptMyAxNkgzNlYxMkgzOVYxNlptLTMgMTdIMzZWMjRIMzNWMjNaTTE4IDI0SDIxVjI3SDE4VjI0WiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=';
+                }}
+              />{/** 
+              <div className="min-w-0">
+                <h1 className="truncate text-sm sm:text-lg lg:text-xl font-bold text-gray-900 leading-tight">
+                  Tribunal de Cuentas
+                </h1>
+                <p className="-mt-0.5 sm:-mt-1 hidden sm:block text-xs lg:text-sm text-gray-600">
+                  Provincia de San Luis
+                </p>
+              </div>*/}
+            </button>
 
-            {/* Navegación principal */}
-            <nav className={`sticky top-0 z-50 transition-all duration-300 ${
-                isScrolled
-                    ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200'
-                    : 'bg-white border-b border-gray-100'
-                }`}>
-
-                <div className="max-w-7xl mx-auto px-4">
-                    <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
-
-                        {/* Logo institucional - Móvil optimizado */}
-                        <div className="flex items-center">
-                            <button 
-                                onClick={() => onSectionChange('inicio')}
-                                className="flex items-center space-x-2 sm:space-x-3 hover:opacity-80 transition-all duration-300 group py-2"
-                                aria-label="Ir al inicio"
-                            >
-                                <div className="relative">
-                                    <img
-                                        src={logoTribunal}
-                                        alt="Logo Tribunal de Cuentas"
-                                        className="h-8 sm:h-10 lg:h-12 w-auto transition-transform duration-300 group-hover:scale-105"
-                                        onError={(e) => {
-                                            e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjIiIGZpbGw9IiMxZTQwYWYiIHN0cm9rZT0iIzNiODJmNiIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNSAxNkgxMlYxMkgxNVYxNlpNMjEgMTZIMThWMTJIMjFWMTZaTTI3IDE2SDI0VjEySDI3VjE2Wk0zMyAxNkgzMFYxMkgzM1YxNlpNMzYgMTZIMzlWMzNIMzZWMTZaTTMwIDMzSDMzVjE5SDMwVjMzWk0yNCAzM0gyN1YxOUgyNFYzM1pNMTggMzNIMjFWMTlIMThWMzNaTTEyIDMzSDE1VjE5SDEyVjMzWk05IDMzSDEyVjM2SDlWMzNaTTM5IDMzSDM2VjM2SDM5VjMzWk05IDM2SDEyVjM5SDlWMzZaTTM5IDM2SDM2VjM5SDM5VjM2Wk0xMiAzNkgzNlYzM0gxMlYzNloiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPg==';
-                                        }}
-                                    />
-                                </div>
-                                <div className="min-w-0">
-                                    <h1 className="text-sm sm:text-lg lg:text-xl font-bold text-gray-900 leading-tight truncate">
-                                        Tribunal de Cuentas
-                                    </h1>
-                                    <p className="text-xs lg:text-sm text-gray-600 -mt-0.5 sm:-mt-1 hidden sm:block">
-                                        Provincia de San Luis
-                                    </p>
-                                </div>
-                            </button>
-                        </div>
-
-                        {/* Navegación desktop */}
-                        {!isMobile && (
-                            <div className="flex items-center space-x-1 lg:space-x-2">
-                                {NAVIGATION_CONFIG.map((item) => (
-                                    <SimpleNavItem
-                                        key={item.id}
-                                        item={item}
-                                        isActive={activeSection === item.id}
-                                        onClick={() => onSectionChange(item.id)}
-                                        openDropdown={openDropdown}
-                                        setOpenDropdown={setOpenDropdown}
-                                        onSubmenuClick={handleSubmenuClick}
-                                    />
-                                ))}
-                            </div>
-                        )}
-
-                        {/* Botón menú móvil - Mejorado */}
-                        {isMobile && (
-                            <button
-                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                className="p-2.5 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                                aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-                            >
-                                <div className="relative w-5 h-5">
-                                    <span className={`absolute block h-0.5 w-5 bg-current transform transition-all duration-300 ${
-                                        mobileMenuOpen ? 'rotate-45 top-2.5' : 'top-1'
-                                    }`}></span>
-                                    <span className={`absolute block h-0.5 w-5 bg-current transform transition-all duration-300 top-2.5 ${
-                                        mobileMenuOpen ? 'opacity-0' : 'opacity-100'
-                                    }`}></span>
-                                    <span className={`absolute block h-0.5 w-5 bg-current transform transition-all duration-300 ${
-                                        mobileMenuOpen ? '-rotate-45 top-2.5' : 'top-4'
-                                    }`}></span>
-                                </div>
-                            </button>
-                        )}
-                    </div>
-                </div>
-            </nav>
-
-            {/* Overlay móvil - Corregido */}
-            {isMobile && mobileMenuOpen && (
-                <div
-                    className="fixed inset-0 bg-black/20 z-30"
-                    onClick={() => setMobileMenuOpen(false)}
-                    style={{ top: '97px' }}
-                />
+            {/* Navegación Desktop */}
+            {!isMobile && (
+              <div className="flex items-center space-x-1 lg:space-x-2">
+                {NAVIGATION_CONFIG.map((item) => (
+                  <DesktopItem
+                    key={item.id}
+                    item={item}
+                    isActive={activeSection === item.id}
+                    onClick={() => onSectionChange(item.id)}
+                    openDropdown={openDropdown}
+                    setOpenDropdown={setOpenDropdown}
+                    onSubmenuClick={handleSubmenuClick}
+                  />
+                ))}
+              </div>
             )}
 
-            {/* Menú móvil optimizado */}
+            {/* Botón Burger */}
             {isMobile && (
-                <div className={`fixed top-[97px] left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-50 transform transition-all duration-300 ${
-                    mobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
-                }`}>
-                    <div className="max-h-[calc(100vh-97px)] overflow-y-auto">
-                        <div className="px-4 py-4 space-y-1">
-                            {NAVIGATION_CONFIG.map((item) => (
-                                <SimpleMobileItem
-                                    key={item.id}
-                                    item={item}
-                                    isActive={activeSection === item.id}
-                                    onClick={() => {
-                                        console.log('Click en móvil:', item.id);
-                                        onSectionChange(item.id);
-                                        setMobileMenuOpen(false);
-                                    }}
-                                    onSubmenuClick={(submenuId) => {
-                                        console.log('Click en submenu móvil:', submenuId);
-                                        handleSubmenuClick(submenuId);
-                                        setMobileMenuOpen(false);
-                                    }}
-                                />
-                            ))}
-                        </div>
-
-                        {/* Enlaces adicionales en móvil - Compactos */}
-                        <div className="px-4 py-4 bg-gray-50 border-t border-gray-200">
-                            <div className="flex justify-center space-x-6 text-xs">
-                                <a 
-                                    href="https://sanluis.gob.ar" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="flex items-center space-x-1 text-gray-500 hover:text-blue-600 transition-colors"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    <ExternalLink className="w-3 h-3" />
-                                    <span>San Luis</span>
-                                </a>
-                                <span className="text-gray-300">|</span>
-                                <a 
-                                    href="https://argentina.gob.ar" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="flex items-center space-x-1 text-gray-500 hover:text-blue-600 transition-colors"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    <ExternalLink className="w-3 h-3" />
-                                    <span>Argentina</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+                className="rounded-lg p-2.5 text-gray-600 transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+              >
+                <div className="relative w-5 h-5">
+                  <span
+                    className={`absolute block h-0.5 w-5 bg-current transition-all duration-300 ${mobileMenuOpen ? 'top-2.5 rotate-45' : 'top-1'
+                      }`}
+                  />
+                  <span
+                    className={`absolute block h-0.5 w-5 bg-current top-2.5 transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'
+                      }`}
+                  />
+                  <span
+                    className={`absolute block h-0.5 w-5 bg-current transition-all duration-300 ${mobileMenuOpen ? 'top-2.5 -rotate-45' : 'top-4'
+                      }`}
+                  />
                 </div>
+              </button>
             )}
-        </>
-    );
+          </div>
+        </div>
+      </nav>
+
+      {/* Overlay Mobile */}
+      {isMobile && mobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/20"
+          style={{ top: headerHeight }}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Menú Mobile */}
+      {isMobile && (
+        <div
+          className={`fixed left-0 right-0 z-50 transition-transform duration-300 bg-white shadow-lg border-b ${mobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+            }`}
+          style={{ top: headerHeight }}
+        >
+          <div className="px-4 py-4">
+            {NAVIGATION_CONFIG.map((item) => (
+              <MobileItem
+                key={item.id}
+                item={item}
+                isActive={activeSection === item.id}
+                onClick={() => {
+                  onSectionChange(item.id);
+                  setMobileMenuOpen(false);
+                }}
+                onSubmenuClick={(subId) => {
+                  handleSubmenuClick(subId);
+                  setMobileMenuOpen(false);
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
-const SimpleNavItem = ({ item, isActive, onClick, openDropdown, setOpenDropdown, onSubmenuClick }) => {
-    const hasSubmenu = item.submenu && item.submenu.length > 0;
-    const isOpen = openDropdown === item.id;
+// Desktop Navigation Item
+const DesktopItem = ({ item, isActive, onClick, openDropdown, setOpenDropdown, onSubmenuClick }) => {
+  const hasSubmenu = Array.isArray(item.submenu) && item.submenu.length > 0;
+  const isOpen = openDropdown === item.id;
 
-    const handleButtonClick = (e) => {
-        e.stopPropagation();
-        if (hasSubmenu) {
-            setOpenDropdown(isOpen ? null : item.id);
-        } else {
-            onClick();
-        }
-    };
+  const handleClick = (e) => {
+    e.stopPropagation();
+    if (hasSubmenu) {
+      setOpenDropdown(isOpen ? null : item.id);
+    } else {
+      onClick();
+    }
+  };
 
-    return (
-        <div className="relative dropdown-container">
+  return (
+    <div className="relative dropdown-container">
+      <button
+        onClick={handleClick}
+        className={`flex items-center space-x-2 px-3 py-2 lg:px-4 rounded-xl text-sm lg:text-base font-medium transition-all ${isActive
+          ? 'text-blue-700 bg-blue-50 border-2 border-blue-200 shadow'
+          : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'
+          }`}
+      >
+        <item.icon className="w-4 h-4" />
+        <span>{item.label}</span>
+        {hasSubmenu && (
+          <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        )}
+      </button>
+
+      {hasSubmenu && isOpen && (
+        <div className="absolute left-0 top-full mt-2 w-56 rounded-xl bg-white border border-gray-200 shadow-lg z-50 py-2">
+          {item.submenu.map((sub) => (
             <button
-                onClick={handleButtonClick}
-                className={`flex items-center space-x-2 px-3 lg:px-4 py-2 rounded-xl text-sm lg:text-base font-medium transition-all duration-300 ${
-                    isActive
-                        ? 'text-blue-700 bg-blue-50 shadow-md border-2 border-blue-200'
-                        : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'
-                }`}
-                aria-label={hasSubmenu ? `Menú ${item.label}` : `Ir a ${item.label}`}
+              key={sub.id}
+              onClick={(e) => {
+                e.stopPropagation();
+                onSubmenuClick(sub.id);
+              }}
+              className="flex w-full items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:text-blue-700 hover:bg-blue-50"
             >
-                <item.icon className="w-4 h-4" />
-                <span className="whitespace-nowrap">{item.label}</span>
-                {hasSubmenu && (
-                    <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                    }`} />
-                )}
+              <sub.icon className="w-4 h-4" />
+              <span>{sub.label}</span>
             </button>
-
-            {/* Dropdown mejorado */}
-            {hasSubmenu && isOpen && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50 animate-fade-in-up">
-                    {item.submenu.map((subItem) => (
-                        <button
-                            key={subItem.id}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onSubmenuClick(subItem.id);
-                            }}
-                            className="w-full px-4 py-3 text-left text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 flex items-center space-x-3 group"
-                        >
-                            <div className="w-8 h-8 bg-gray-100 group-hover:bg-blue-100 rounded-lg flex items-center justify-center transition-colors">
-                                <subItem.icon className="w-4 h-4" />
-                            </div>
-                            <span className="font-medium">{subItem.label}</span>
-                        </button>
-                    ))}
-                </div>
-            )}
+          ))}
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
-const SimpleMobileItem = ({ item, isActive, onClick, onSubmenuClick }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const hasSubmenu = item.submenu && item.submenu.length > 0;
+// Mobile Item
+const MobileItem = ({ item, isActive, onClick, onSubmenuClick }) => {
+  const [expanded, setExpanded] = useState(false);
+  const hasSubmenu = Array.isArray(item.submenu) && item.submenu.length > 0;
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        if (hasSubmenu) {
-            setIsExpanded(!isExpanded);
-        } else {
-            console.log('Ejecutando onClick para:', item.label);
+  return (
+    <div className="mb-1">
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          if (hasSubmenu) {
+            setExpanded(!expanded);
+          } else {
             onClick();
-        }
-    };
-
-    const handleSubmenuItemClick = (e, submenuId) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Ejecutando onSubmenuClick para:', submenuId);
-        onSubmenuClick(submenuId);
-    };
-
-    return (
-        <div className="space-y-1">
-            <button
-                onClick={handleClick}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 touch-manipulation ${
-                    isActive
-                        ? 'text-blue-700 bg-blue-50 shadow-sm'
-                        : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50 active:bg-gray-100'
-                }`}
-                type="button"
-            >
-                <div className="flex items-center space-x-2.5">
-                    <div className={`w-6 h-6 rounded-md flex items-center justify-center transition-colors ${
-                        isActive ? 'bg-blue-100' : 'bg-gray-100'
-                    }`}>
-                        <item.icon className="w-3.5 h-3.5" />
-                    </div>
-                    <span>{item.label}</span>
-                </div>
-                {hasSubmenu && (
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                        isExpanded ? 'rotate-180' : ''
-                    }`} />
-                )}
-            </button>
-
-            {hasSubmenu && isExpanded && (
-                <div className="ml-3 space-y-0.5">
-                    {item.submenu.map((subItem) => (
-                        <button
-                            key={subItem.id}
-                            onClick={(e) => handleSubmenuItemClick(e, subItem.id)}
-                            className="w-full flex items-center space-x-2.5 px-3 py-2 text-xs text-gray-600 hover:text-blue-600 hover:bg-blue-50 active:bg-blue-100 rounded-md transition-all duration-200 touch-manipulation"
-                            type="button"
-                        >
-                            <div className="w-5 h-5 bg-gray-100 rounded flex items-center justify-center">
-                                <subItem.icon className="w-2.5 h-2.5" />
-                            </div>
-                            <span>{subItem.label}</span>
-                        </button>
-                    ))}
-                </div>
-            )}
+          }
+        }}
+        className={`w-full text-left flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${isActive
+          ? 'bg-blue-50 text-blue-700'
+          : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'
+          }`}
+      >
+        <div className="flex items-center space-x-2.5">
+          <item.icon className="w-4 h-4" />
+          <span>{item.label}</span>
         </div>
-    );
+        {hasSubmenu && (
+          <ChevronDown className={`w-4 h-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+        )}
+      </button>
+
+      {hasSubmenu && expanded && (
+        <div className="ml-4 mt-1">
+          {item.submenu.map((sub) => (
+            <button
+              key={sub.id}
+              onClick={(e) => {
+                e.stopPropagation();
+                onSubmenuClick(sub.id);
+              }}
+              className="flex w-full items-center space-x-2.5 px-3 py-2 text-xs text-gray-600 hover:bg-blue-50 hover:text-blue-700 rounded-md"
+            >
+              <sub.icon className="w-3 h-3" />
+              <span>{sub.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 };

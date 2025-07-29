@@ -33,7 +33,7 @@ const HERO_SLIDES = [
     {
         id: 3,
         title: 'Innovación Digital',
-        subtitle: 'Certificada ISO 9001',
+        subtitle: 'Certificada ISO 9001:2015',
         description: 'Pioneros en digitalización con sistemas modernos de gestión, firma digital y expediente electrónico.',
         image: heroImg3,
         gradient: 'from-purple-600 via-blue-700 to-indigo-800',

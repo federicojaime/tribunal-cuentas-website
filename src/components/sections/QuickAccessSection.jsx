@@ -67,7 +67,7 @@ const DIGITAL_SERVICES = [
         id: 'gestion-calidad',
         title: 'Gestión de Calidad',
         icon: Star,
-        description: 'Sistema ISO 9001 y mejora continua',
+        description: 'Sistema ISO 9001:2015 y mejora continua',
         color: 'from-violet-500 to-purple-500',
         category: 'gestion-calidad'
     },
@@ -170,7 +170,7 @@ export const QuickAccessSection = ({ onSectionChange }) => (
                             <div className="text-sm text-gray-600">Servicios digitales disponibles</div>
                         </div>
                         <div className="p-4">
-                            <div className="text-2xl font-bold text-emerald-600 mb-1">ISO 9001</div>
+                            <div className="text-2xl font-bold text-emerald-600 mb-1">ISO 9001:2015</div>
                             <div className="text-sm text-gray-600">Certificación de calidad</div>
                         </div>
                         <div className="p-4">

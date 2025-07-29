@@ -85,7 +85,7 @@ export const NormasPage = () => (
                                 <Shield className="w-8 h-8 text-white" />
                             </div>
                             <div>
-                                <h1 className="text-4xl font-bold mb-2">Marco Normativo</h1>
+                                <h1 className="text-4xl font-bold mb-2">Normas</h1>
                                 <p className="text-blue-200 text-lg">Tribunal de Cuentas de la Provincia de San Luis</p>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-// src/App.jsx - CORREGIDO
+// src/App.jsx
 import React, { useState, useCallback, useEffect } from 'react';
 import { MinimalNavigation as Navigation } from './components/layout/Navigation';
 import { Footer } from './components/layout/Footer';
@@ -8,22 +8,20 @@ const App = () => {
   const [activeSection, setActiveSection] = useState('inicio');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Función mejorada para cambiar de sección
+  // Cambia la sección activa y cierra el menú móvil
   const handleSectionChange = useCallback((section) => {
-    console.log('Cambiando a sección:', section); // Para debug
+    console.log('Cambiando a sección:', section);
     setActiveSection(section);
     setMobileMenuOpen(false);
-    
-    // Scroll suave al top cuando cambia la sección
+
+    // Desplazamiento suave al inicio de la página
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  // Cerrar menú móvil al hacer scroll
+  // Cierra el menú móvil al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (mobileMenuOpen) {
-        setMobileMenuOpen(false);
-      }
+      if (mobileMenuOpen) setMobileMenuOpen(false);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -32,24 +30,27 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation 
+      {/* Navegación principal */}
+      <Navigation
         activeSection={activeSection}
         onSectionChange={handleSectionChange}
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
       />
-      
-      <PageRouter 
-        activeSection={activeSection} 
+
+      {/* Contenido según la ruta */}
+      <PageRouter
+        activeSection={activeSection}
         onSectionChange={handleSectionChange}
       />
-      
+
+      {/* Pie de página */}
       <Footer />
-      
-      {/* Overlay para menú móvil */}
+
+      {/* Overlay oscuro cuando el menú móvil está abierto */}
       {mobileMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+        <div
+          className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}

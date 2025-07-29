@@ -28,22 +28,22 @@ const CAPACITACIONES_RECIENTES = [
 const CALENDARIO_EVENTOS = [
   {
     fecha: '9 JUN, VIE',
-    evento: 'Vencimiento Presentación Balance',
+    evento: 'Vencimiento Presentación Balance del 1er Trimestre',
     tipo: 'vencimiento'
   },
   {
     fecha: '31 AGO, DOM',
-    evento: 'Vencimiento Presentación Balance',
+    evento: 'Vencimiento Presentación Balance del 2do Trimestre',
     tipo: 'vencimiento'
   },
   {
     fecha: '30 NOV, DOM',
-    evento: 'Vencimiento Presentación Balance',
+    evento: 'Vencimiento Presentación Balance del 3er Trimestre',
     tipo: 'vencimiento'
   },
   {
     fecha: '28 FEB, SÁB',
-    evento: 'Vencimiento Presentación Balance - Eventos - Tribunal de Cuentas',
+    evento: 'Vencimiento Presentación Balance del 4to Trimestre',
     tipo: 'evento'
   }
 ];
@@ -79,15 +79,15 @@ export const MunicipiosPage = () => (
   <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
     <Section padding="py-12">
       {/* Header principal */}
-      <div className="mb-16">
+      {/**  <div className="mb-16">
         <div className="bg-gradient-to-r from-blue-900 via-indigo-800 to-purple-900 rounded-3xl p-10 text-white relative overflow-hidden">
-          {/* Patrón decorativo */}
+          {/* Patrón decorativo
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-8 right-8 w-32 h-32 border-2 border-white rounded-full"></div>
             <div className="absolute bottom-8 left-8 w-24 h-24 border-2 border-blue-300 rounded-full"></div>
             <div className="absolute top-1/2 left-1/3 w-16 h-16 border-2 border-purple-300 rounded-full"></div>
           </div>
-
+          
           <div className="relative z-10">
             <div className="flex items-center mb-6">
               <div className="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mr-4">
@@ -104,9 +104,9 @@ export const MunicipiosPage = () => (
                 {MUNICIPIOS_INFO.descripcion}
               </p>
             </div>
-          </div>
         </div>
-      </div>
+        </div>
+      </div>*/}
 
       {/* Contenido principal */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
@@ -120,7 +120,7 @@ export const MunicipiosPage = () => (
             </h2>
             <p className="text-gray-600 leading-relaxed mb-6">
               Su opinión es importante para nosotros. Complete nuestra encuesta de satisfacción
-              para ayudarnos a mejorar nuestros servicios municipales.
+              para ayudarnos a mejorar.
             </p>
             <a
               href={MUNICIPIOS_INFO.encuestaUrl}
@@ -188,8 +188,8 @@ export const MunicipiosPage = () => (
           </div>
         </div>
       </div>*/}
-    </Section>
-  </div>
+    </Section >
+  </div >
 );
 
 const CapacitacionCard = ({ capacitacion }) => (

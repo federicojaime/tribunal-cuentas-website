@@ -1,13 +1,13 @@
 // src/components/pages/GestionCalidadPage.jsx
 import React from 'react';
-import { 
-  Star, 
-  Award, 
-  ExternalLink, 
-  CheckCircle, 
-  Target, 
-  Shield, 
-  Users 
+import {
+  Star,
+  Award,
+  ExternalLink,
+  CheckCircle,
+  Target,
+  Shield,
+  Users
 } from 'lucide-react';
 
 import { Section, SectionHeader } from '../ui/Section';
@@ -85,15 +85,15 @@ const FALLBACK_CERTIFICATE_IMAGE = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMj
 
 const DecorativePattern = () => (
   <div className="absolute inset-0 opacity-10">
-    <div className="absolute top-8 right-8 w-32 h-32 border-2 border-white rounded-full animate-pulse"></div>
-    <div className="absolute bottom-8 left-8 w-24 h-24 border-2 border-emerald-300 rounded-full"></div>
-    <div className="absolute top-1/2 left-1/3 w-16 h-16 border-2 border-teal-300 rounded-full"></div>
+    <div className="absolute top-4 right-4 md:top-8 md:right-8 w-16 h-16 md:w-32 md:h-32 border-2 border-white rounded-full animate-pulse"></div>
+    <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 w-12 h-12 md:w-24 md:h-24 border-2 border-emerald-300 rounded-full"></div>
+    <div className="absolute top-1/2 left-1/3 w-8 h-8 md:w-16 md:h-16 border-2 border-teal-300 rounded-full"></div>
   </div>
 );
 
 const CertificadoItem = ({ certificado }) => (
   <div className="group cursor-pointer">
-    <div className="bg-gray-100 rounded-xl p-4 hover:bg-gray-200 transition-all duration-300 hover:shadow-md">
+    <div className="bg-gray-100 rounded-xl p-3 md:p-4 hover:bg-gray-200 transition-all duration-300 hover:shadow-md">
       <img
         src={certificado.imagen}
         alt={certificado.alt}
@@ -108,26 +108,26 @@ const CertificadoItem = ({ certificado }) => (
 );
 
 const PolicyCard = ({ title, content, color }) => (
-  <div className={`border-2 ${color} rounded-xl p-6 hover:shadow-md transition-shadow duration-300`}>
-    <h3 className="text-lg font-bold text-gray-800 mb-3">{title}</h3>
-    <p className="text-gray-700 leading-relaxed">{content}</p>
+  <div className={`border-2 ${color} rounded-xl p-4 md:p-6 hover:shadow-md transition-shadow duration-300`}>
+    <h3 className="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-3">{title}</h3>
+    <p className="text-sm md:text-base text-gray-700 leading-relaxed">{content}</p>
   </div>
 );
 
 const BeneficioCard = ({ beneficio }) => {
   const IconComponent = beneficio.icono;
-  
+
   return (
-    <Card className="p-6 group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-      <div className="flex items-start space-x-4">
-        <div className={`w-12 h-12 bg-gradient-to-br ${beneficio.color} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-          <IconComponent className="w-6 h-6 text-white" />
+    <Card className="p-4 md:p-6 group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+      <div className="flex items-start space-x-3 md:space-x-4">
+        <div className={`w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br ${beneficio.color} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+          <IconComponent className="w-5 h-5 md:w-6 md:h-6 text-white" />
         </div>
         <div>
-          <h3 className="text-xl font-semibold text-slate-800 mb-3 group-hover:text-emerald-700 transition-colors duration-300">
+          <h3 className="text-lg md:text-xl font-semibold text-slate-800 mb-2 md:mb-3 group-hover:text-emerald-700 transition-colors duration-300">
             {beneficio.titulo}
           </h3>
-          <p className="text-slate-600 leading-relaxed">
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             {beneficio.descripcion}
           </p>
         </div>
@@ -139,35 +139,35 @@ const BeneficioCard = ({ beneficio }) => {
 // ==================== SECCIONES PRINCIPALES ====================
 
 const HeroSection = () => (
-  <div className="mb-16">
-    <div className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-800 rounded-3xl p-10 text-white relative overflow-hidden">
+  <div className="mb-8 md:mb-16">
+    <div className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-800 rounded-2xl md:rounded-3xl p-6 md:p-10 text-white relative overflow-hidden">
       <DecorativePattern />
-      
+
       <div className="relative z-10">
-        <div className="flex items-center mb-6">
-          <div className="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mr-4">
-            <Star className="w-8 h-8 text-white" />
+        <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 md:mb-6">
+          <div className="w-12 h-12 md:w-16 md:h-16 bg-white bg-opacity-20 rounded-xl md:rounded-2xl flex items-center justify-center mr-0 sm:mr-4 mb-4 sm:mb-0">
+            <Star className="w-6 h-6 md:w-8 md:h-8 text-white" />
           </div>
           <div>
-            <h1 className="text-4xl font-bold mb-2">Gestión de Calidad</h1>
-            <p className="text-emerald-200 text-lg">
+            <h1 className="text-2xl md:text-4xl font-bold mb-1 md:mb-2">Gestión de Calidad</h1>
+            <p className="text-emerald-200 text-sm md:text-lg">
               Tribunal de Cuentas de la Provincia de San Luis
             </p>
           </div>
         </div>
 
-        <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 border border-white border-opacity-20">
-          <p className="text-lg leading-relaxed text-emerald-100 mb-4">
+        <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-white border-opacity-20">
+          <p className="text-sm md:text-lg leading-relaxed text-emerald-100 mb-3 md:mb-4">
             {CALIDAD_INFO.certificacion.descripcion}
           </p>
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="bg-white bg-opacity-20 rounded-xl px-4 py-2">
-              <span className="font-semibold">
+          <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-2 md:gap-4">
+            <div className="bg-white bg-opacity-20 rounded-lg md:rounded-xl px-3 py-2 md:px-4 md:py-2">
+              <span className="font-semibold text-sm md:text-base">
                 Certificación: {CALIDAD_INFO.certificacion.norma}
               </span>
             </div>
-            <div className="bg-white bg-opacity-20 rounded-xl px-4 py-2">
-              <span className="font-semibold">
+            <div className="bg-white bg-opacity-20 rounded-lg md:rounded-xl px-3 py-2 md:px-4 md:py-2">
+              <span className="font-semibold text-sm md:text-base">
                 Año: {CALIDAD_INFO.certificacion.año}
               </span>
             </div>
@@ -179,45 +179,45 @@ const HeroSection = () => (
 );
 
 const MainContentAndSidebar = () => (
-  <div className="mb-16">
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+  <div className="mb-8 md:mb-16">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8">
       {/* Contenido principal - 3 columnas */}
-      <div className="lg:col-span-3 space-y-16">
+      <div className="lg:col-span-3 space-y-8 md:space-y-16">
         {/* Información principal */}
-        <div className="space-y-6">
-          <Card className="p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              Implementación de Calidad
+        <div className="space-y-4 md:space-y-6">
+          <Card className="p-4 md:p-8">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 md:mb-4">
+              Sistema de Gestión de Calidad
             </h2>
-            <div className="space-y-4 text-gray-600 leading-relaxed">
+            <div className="space-y-3 md:space-y-4 text-sm md:text-base text-gray-600 leading-relaxed">
               <p>{CALIDAD_INFO.proposito}</p>
               <p>{CALIDAD_INFO.responsabilidad}</p>
               <p>{CALIDAD_INFO.secretaria}</p>
             </div>
           </Card>
 
-          <Card className="p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">Portal de Calidad</h2>
-              <Award className="w-8 h-8 text-emerald-600" />
+          <Card className="p-4 md:p-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 md:mb-6 gap-3">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800">Portal de Calidad</h2>
+              <Award className="w-6 h-6 md:w-8 md:h-8 text-emerald-600" />
             </div>
-            <p className="text-gray-600 leading-relaxed mb-6">
+            {/* } <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-4 md:mb-6">
               Acceda al portal oficial de gestión de calidad del Tribunal de Cuentas 
               para obtener información detallada sobre nuestros procesos certificados.
-            </p>
+            </p>*/}
             <a
               href={PORTAL_CALIDAD_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"
             >
-              <GradientButton 
-                variant="success" 
+              <GradientButton
+                variant="success"
                 size="lg"
-                className="flex items-center"
+                className="flex items-center w-full sm:w-auto justify-center text-sm md:text-base"
               >
                 Acceso Portal de Calidad
-                <ExternalLink className="w-5 h-5 ml-2" />
+                <ExternalLink className="w-4 h-4 md:w-5 md:h-5 ml-2" />
               </GradientButton>
             </a>
           </Card>
@@ -230,44 +230,44 @@ const MainContentAndSidebar = () => (
             subtitle="Misión, Visión y Valores institucionales"
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             {/* Panel izquierdo con logo */}
-            <div className="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-3xl p-8 text-white flex items-center justify-center">
-              <div className="text-center transform -rotate-90">
-                <h2 className="text-4xl font-bold whitespace-nowrap">
+            <div className="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl md:rounded-3xl p-6 md:p-8 text-white flex items-center justify-center min-h-[120px] md:min-h-[200px]">
+              <div className="text-center">
+                <h2 className="text-xl md:text-4xl font-bold">
                   Política de Calidad
                 </h2>
               </div>
             </div>
 
             {/* Panel derecho con contenido */}
-            <div className="space-y-6">
-              <PolicyCard 
-                title="MISIÓN" 
+            <div className="space-y-4 md:space-y-6">
+              <PolicyCard
+                title="MISIÓN"
                 content={POLITICA_CALIDAD.mision}
                 color="border-blue-300 bg-blue-50"
               />
-              <PolicyCard 
-                title="VISIÓN" 
+              <PolicyCard
+                title="VISIÓN"
                 content={POLITICA_CALIDAD.vision}
                 color="border-emerald-300 bg-emerald-50"
               />
-              <div className="border-2 border-purple-300 bg-purple-50 rounded-xl p-6 hover:shadow-md transition-shadow duration-300">
-                <h3 className="text-lg font-bold text-gray-800 mb-3">VALORES</h3>
-                <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="border-2 border-purple-300 bg-purple-50 rounded-xl p-4 md:p-6 hover:shadow-md transition-shadow duration-300">
+                <h3 className="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-3">VALORES</h3>
+                <div className="grid grid-cols-2 gap-2 md:gap-4 mb-3 md:mb-4">
                   {POLITICA_CALIDAD.valores.map((valor, index) => (
-                    <div 
-                      key={index} 
-                      className="text-center py-2 bg-white rounded-lg font-medium text-gray-700 hover:shadow-sm transition-shadow duration-200"
+                    <div
+                      key={index}
+                      className="text-center py-2 bg-white rounded-lg font-medium text-xs md:text-sm text-gray-700 hover:shadow-sm transition-shadow duration-200"
                     >
                       {valor}
                     </div>
                   ))}
                 </div>
-                <div className="bg-emerald-600 text-white text-center py-2 rounded-lg font-semibold">
+                <div className="bg-emerald-600 text-white text-center py-2 rounded-lg font-semibold text-xs md:text-sm">
                   {POLITICA_CALIDAD.autoridades}
                 </div>
-                <div className="text-center mt-2 text-sm text-gray-600">
+                <div className="text-center mt-2 text-xs md:text-sm text-gray-600">
                   Revisión: {POLITICA_CALIDAD.revision}
                 </div>
               </div>
@@ -275,29 +275,29 @@ const MainContentAndSidebar = () => (
           </div>
         </div>
 
-        {/* Beneficios de la Gestión de Calidad 
+        {/* Beneficios de la Gestión de Calidad */}
         <div>
           <SectionHeader
             title="Beneficios de la Gestión de Calidad"
             subtitle="Impacto positivo en la gestión institucional"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
             {BENEFICIOS_CALIDAD.map((beneficio, index) => (
               <BeneficioCard key={index} beneficio={beneficio} />
             ))}
           </div>
-        </div>*/}
+        </div>
       </div>
 
       {/* Sidebar de certificados - 1 columna */}
-      <div className="lg:col-span-1">
-        <Card className="p-6 sticky top-6">
-          <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-            <Award className="w-6 h-6 text-emerald-600 mr-2" />
+      <div className="lg:col-span-1 order-first lg:order-last">
+        <Card className="p-4 md:p-6 lg:sticky lg:top-6">
+          <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4 flex items-center">
+            <Award className="w-5 h-5 md:w-6 md:h-6 text-emerald-600 mr-2" />
             Certificaciones
           </h3>
-          <div className="space-y-4">
+          <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 md:gap-4">
             {CERTIFICADOS.map((certificado) => (
               <CertificadoItem key={certificado.id} certificado={certificado} />
             ))}
@@ -309,16 +309,16 @@ const MainContentAndSidebar = () => (
 );
 
 const CommitmentSection = () => (
-  <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-3xl p-8 text-white">
-    <div className="flex items-start space-x-4">
-      <div className="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0">
-        <Star className="w-6 h-6 text-white" />
+  <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl md:rounded-3xl p-6 md:p-8 text-white">
+    <div className="flex items-start space-x-3 md:space-x-4">
+      <div className="w-10 h-10 md:w-12 md:h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0">
+        <Star className="w-5 h-5 md:w-6 md:h-6 text-white" />
       </div>
       <div>
-        <h3 className="text-xl font-bold mb-3">Compromiso con la Excelencia</h3>
-        <p className="text-emerald-100 leading-relaxed">
-          Nuestro compromiso con la gestión de calidad nos permite brindar un servicio 
-          de control y auditoría de excelencia, garantizando la transparencia y eficiencia 
+        <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">Compromiso con la Excelencia</h3>
+        <p className="text-sm md:text-base text-emerald-100 leading-relaxed">
+          Nuestro compromiso con la gestión de calidad nos permite brindar un servicio
+          de control y auditoría de excelencia, garantizando la transparencia y eficiencia
           en el manejo de los recursos públicos de la Provincia de San Luis.
         </p>
       </div>
@@ -330,9 +330,10 @@ const CommitmentSection = () => (
 
 export const GestionCalidadPage = () => (
   <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-    <Section padding="py-12">
+    <Section padding="py-6 md:py-12">
       <HeroSection />
       <MainContentAndSidebar />
+      <CommitmentSection />
     </Section>
   </div>
 );

@@ -21,12 +21,8 @@ export const Footer = () => (
                                 <img
                                     src={logoTribunal}
                                     alt="Logo Honorable Tribunal de Cuentas de San Luis"
-                                    className="h-20 sm:h-24 w-auto filter drop-shadow-lg"
+                                    className="h-56 sm:h-48 md:h-52 lg:h-56 xl:h-60 w-auto filter drop-shadow-lg"
                                     loading="lazy"
-                                    onError={(e) => {
-                                        // Fallback SVG optimizado
-                                        e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBhcmlhLWxhYmVsPSJMb2dvIFRyaWJ1bmFsIGRlIEN1ZW50YXMiPjxjaXJjbGUgY3g9IjQ4IiBjeT0iNDgiIHI9IjQ1IiBmaWxsPSIjMWU0MGFmIiBzdHJva2U9IiMzYjgyZjYiIHN0cm9rZS13aWR0aD0iNiIvPjxwYXRoIGQ9Ik0zMCAzM0gyNFYyNEgzMFYzM1pNNDIgMzNIMzZWMjRINDJWMzNaTTU0IDMzSDQ4VjI0SDU0VjMzWk02NiAzM0g2MFYyNEg2NlYzM1pNNzIgMzNINzhWNjZINzJWMzNaTTYwIDY2SDY2VjM5SDYwVjY2Wk00OCA2Nkg1NFYzOUg0OFY2NlpNMzYgNjZINDJWMzlIMzZWNjZaTTI0IDY2SDMwVjM5SDI0VjY2Wk0xOCA2NkgyNFY3MkgxOFY2NlpNNzggNjZINzJWNzJINzhWNjZaTTE4IDcySDI0Vjc4SDE4Vjc2Wk03OCA3Mkg3MlY3OEg3OFY3MlpNMjQgNzJINzJWNjZIMjRWNzJaIiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==';
-                                    }}
                                 />
                             </div>
                             {/*<div className="flex-1 text-center sm:text-left">
@@ -53,9 +49,9 @@ export const Footer = () => (
                                 Nuestra Misión
                             </h4>
                             <p className="text-gray-300 leading-relaxed mb-4 text-sm sm:text-base">
-                                Ejercer el control externo de la gestión económica financiera del sector público provincial y municipal,
-                                garantizando transparencia, eficiencia y legalidad en el uso de los recursos públicos.
+                                Ejecutar un efectivo control de los fondos públicos, de manera oportuna, imparcial y transparente.
                             </p>
+                            {/**
                             <div className="flex flex-wrap gap-2">
                                 <span className="px-3 py-1 bg-blue-800/50 text-blue-200 text-xs rounded-full border border-blue-700 transition-colors hover:bg-blue-700/50">
                                     Transparencia
@@ -66,7 +62,7 @@ export const Footer = () => (
                                 <span className="px-3 py-1 bg-purple-800/50 text-purple-200 text-xs rounded-full border border-purple-700 transition-colors hover:bg-purple-700/50">
                                     Legalidad
                                 </span>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
@@ -110,6 +106,26 @@ export const Footer = () => (
                                 >
                                     <ExternalLink className="w-3 h-3" />
                                     <span>Gobierno de San Luis</span>
+                                </a>
+                                <a
+                                    href="https://www.firmadigital.sanluis.gov.ar/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center space-x-2 text-gray-400 hover:text-blue-300 transition-colors text-sm p-2 rounded-lg hover:bg-white/5"
+                                    aria-label="Visitar sitio del Gobierno de San Luis (se abre en nueva ventana)"
+                                >
+                                    <ExternalLink className="w-3 h-3" />
+                                    <span>FIRMA DIGITAL SAN LUIS</span>
+                                </a>
+                                <a
+                                    href="https://tribunalesdecuentas.org.ar/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center space-x-2 text-gray-400 hover:text-blue-300 transition-colors text-sm p-2 rounded-lg hover:bg-white/5"
+                                    aria-label="Visitar sitio del Gobierno de San Luis (se abre en nueva ventana)"
+                                >
+                                    <ExternalLink className="w-3 h-3" />
+                                    <span>S.P.T.C.R.A.</span>
                                 </a>
                                 <a
                                     href="https://argentina.gob.ar"

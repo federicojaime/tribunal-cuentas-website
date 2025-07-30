@@ -300,12 +300,12 @@ const VocalCard = ({ vocal, onClick }) => (
                 </h3>
             </div>
 
-            {/* Especialidad opcional */}
+            {/* Especialidad opcional 
             {vocal.especialidad && (
                 <p className="text-xs text-gray-500 mb-2">
                     {vocal.especialidad}
                 </p>
-            )}
+            )}*/}
 
             {/* Botón de acción sutil
             <button 

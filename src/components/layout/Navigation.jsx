@@ -93,30 +93,32 @@ export const MinimalNavigation = ({
           }`}
       >
         <div className="mx-auto px-4">
-          <div className="flex h-14 items-center justify-between sm:h-16 lg:h-20">
-            {/* Logo */}
+          <div className="flex h-18 sm:h-20 lg:h-24 xl:h-28 items-center justify-between">
+            {/* Logo - MEJORADO PARA RESPONSIVE CON TAMAÑOS GRANDES EN TODAS LAS PANTALLAS */}
             <button
               onClick={() => onSectionChange('inicio')}
-              className="group flex items-center space-x-2 py-2 transition-all hover:opacity-80 sm:space-x-3"
+              className="group flex items-center py-2 transition-all hover:opacity-80 flex-shrink-0"
               aria-label="Ir al inicio"
             >
               <img
                 src={logoTribunal}
                 alt="Logo Tribunal de Cuentas"
-                className="h-18 sm:h-16 lg:h-24 w-auto transition-transform group-hover:scale-105"
+                className={`w-auto transition-all duration-300 group-hover:scale-105 ${
+                  // Tamaños responsivos mejorados - TODOS MÁS GRANDES
+                  isMobile 
+                    ? (isScrolled ? 'h-16' : 'h-20') // Móvil: MÁS GRANDE también
+                    : (isScrolled ? 'h-18 sm:h-20 lg:h-24' : 'h-20 sm:h-24 lg:h-28 xl:h-32') // PC: MUCHO MÁS GRANDE
+                }`}
+                style={{
+                  // Asegurar que mantenga proporción y no se deforme
+                  objectFit: 'contain',
+                  maxWidth: isMobile ? '240px' : '320px' // Móvil también con más ancho
+                }}
                 onError={(e) => {
                   e.currentTarget.src =
                     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSIyMiIgZmlsbD0iIzFlNDBhZiIgc3Ryb2tlPSIjM2I4MmY2IiBzdHJva2Utd2lkdGg9IjQiLz48cGF0aCBkPSJNMTUgMTZIMTJWMTJIMTVWMTZaTTIxIDE2SDE4VjEySDIxVjE2Wk0yNyAxNkgyNFYxMkgxN1YxNlptNiAxNkgzMFYxMkgzM1YxNlptMyAxNkgzNlYxMkgzOVYxNlptLTMgMTdIMzZWMjRIMzNWMjNaTTE4IDI0SDIxVjI3SDE4VjI0WiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=';
                 }}
-              />{/** 
-              <div className="min-w-0">
-                <h1 className="truncate text-sm sm:text-lg lg:text-xl font-bold text-gray-900 leading-tight">
-                  Tribunal de Cuentas
-                </h1>
-                <p className="-mt-0.5 sm:-mt-1 hidden sm:block text-xs lg:text-sm text-gray-600">
-                  Provincia de San Luis
-                </p>
-              </div>*/}
+              />
             </button>
 
             {/* Navegación Desktop */}
@@ -136,12 +138,12 @@ export const MinimalNavigation = ({
               </div>
             )}
 
-            {/* Botón Burger */}
+            {/* Botón Burger - MEJORADO */}
             {isMobile && (
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
-                className="rounded-lg p-2.5 text-gray-600 transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+                className="rounded-lg p-2.5 text-gray-600 transition-all duration-300 hover:bg-gray-100 hover:text-gray-900 flex-shrink-0"
               >
                 <div className="relative w-5 h-5">
                   <span
@@ -179,7 +181,7 @@ export const MinimalNavigation = ({
             }`}
           style={{ top: headerHeight }}
         >
-          <div className="px-4 py-4">
+          <div className="px-4 py-4 max-h-[60vh] overflow-y-auto">
             {NAVIGATION_CONFIG.map((item) => (
               <MobileItem
                 key={item.id}

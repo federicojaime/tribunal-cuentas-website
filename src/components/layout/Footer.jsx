@@ -209,7 +209,7 @@ export const Footer = () => (
                             </div>
                         </div>
 
-                        {/* Redes sociales */}
+                        {/* Redes sociales 
                         <div className="mt-6 pt-4 border-t border-gray-700">
                             <h5 className="text-sm font-semibold text-gray-400 mb-3">Redes Sociales</h5>
                             <div className="flex space-x-3">
@@ -238,7 +238,7 @@ export const Footer = () => (
                                     <Linkedin className="w-4 h-4 text-white" />
                                 </button>
                             </div>
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
             </div>
